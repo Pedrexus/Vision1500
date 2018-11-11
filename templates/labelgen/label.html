@@ -1,0 +1,206 @@
+{% load static %}
+
+<html>
+<head>
+	<title>
+		ETIQUETA
+	</title>
+</head>
+<body>
+<meta charset="UTF-8">
+<div class="wrapper" ,
+<div class="details">
+	<style type="text/css">
+		.tg {
+			border-collapse: collapse;
+			border-spacing: 0;
+			border-color: #ccc;
+			border: 1px solid black;
+			table-layout: fixed;
+		}
+
+		.tg td {
+			font-family: Arial, sans-serif;
+			font-size: 14px;
+			padding: 1px 1px;
+			border-style: solid;
+			border-width: 1px;
+			overflow: hidden;
+			word-break: normal;
+			border-color: #ccc;
+			color: #333;
+			background-color: #fff;
+			table-layout: fixed;
+		}
+
+		.tg th {
+			font-family: Arial, sans-serif;
+			font-size: 14px;
+			font-weight: normal;
+			padding: 1px 1px;
+			border-style: solid;
+			border-width: 1px;
+			overflow: hidden;
+			word-break: normal;
+			border-color: #ccc;
+			color: #333;
+			background-color: #f0f0f0;
+			table-layout: fixed;
+		}
+
+		.tg .tg-inventory_location {
+			font-size: 36px;
+			border-color: #000000;
+			text-align: center;
+			vertical-align: center;
+			table-layout: fixed;
+		}
+
+		.tg .tg-composicao {
+			font-size: 22px;
+			border-color: #000000;
+			text-align: left;
+			vertical-align: top;
+			table-layout: fixed;
+		}
+
+		.tg .tg-cabecalho {
+			border-color: #000000;
+			text-align: center;
+			vertical-align: center;
+			table-layout: fixed;
+			height: 2cm
+		}
+
+		.tg .tg-barcode {
+			border-color: #000000;
+			text-align: center;
+			vertical-align: top;
+			table-layout: fixed;
+			height: 2cm;
+			width: 15cm;
+		}
+
+		.tg .tg-info_user {
+			border-color: #000000;
+			text-align: left;
+			vertical-align: top;
+			table-layout: fixed;
+			width: 3cm;
+			height: 2cm
+		}
+
+		.tg .tg-basic {
+			border-color: #000000;
+			text-align: left;
+			vertical-align: top;
+			table-layout: fixed;
+			width: 3cm
+		}
+
+		.tg .tg-basic-large {
+			border-color: #000000;
+			text-align: left;
+			vertical-align: top;
+			table-layout: fixed;
+			width: 7cm
+		}
+
+		.tg .tg-basic-centered {
+			border-color: #000000;
+			text-align: center;
+			vertical-align: top;
+			table-layout: fixed;
+		}
+
+		.tg .tg-check {
+			border-color: #000000;
+			text-align: center;
+			vertical-align: top;
+			width: 1cm;
+			padding: 1px 1px;
+			table-layout: fixed;
+		}
+
+	</style>
+	<table class="tg">
+
+		<tr>
+			<th class="tg-cabecalho" colspan="1">
+				<img src="/media/DeGR.jpg" alt="Logo DeGR"
+				     style="height:2cm">
+			</td>
+
+			</th>
+			<th class="tg-cabecalho" colspan="3">
+				<font size="+2"> DeGR </font><br>
+				<font> Departamento de Gestão de Resíduos <br>
+					(16)3351-8015 degr@ufscar.br</font>
+			</th>
+			<th class="tg-cabecalho" colspan="1">
+				<img src="/media/logo_ufscar.png" alt="Logo UFSCar"
+				     style="height:2cm">
+			</td>
+			</th>
+
+		</tr>
+
+		<tr>
+			<td class="tg-composicao" colspan="4"
+			    rowspan="2">{{ composicao }}<br></td>
+			<td class="tg-info_user">{{ nome_gerador }} <br> {{ email }}
+				<br> {{ telefone }} </td>
+		</tr>
+
+		<tr>
+			<td class="tg-info_user"><br>{{ laboratorio }} <br>
+				Departamento de Pesquisa<br></td>
+		</tr>
+
+		<tr>
+			<td class="tg-basic" colspan="4">pH: {{ pH }}</td>
+			<td class="tg-inventory_location" rowspan="5"><span
+					style="font-weight:bold">{{ inventory_location }}</span>
+			</td>
+		</tr>
+
+		<tr>
+			<td class="tg-basic-centered" colspan="4">O resíduo contém:<br>
+			</td>
+		</tr>
+
+		<tr>
+			<td class="tg-basic">Halogenados</td>
+			<td class="tg-check">{{ halogen_check }}</td>
+			<td class="tg-basic-large">Enxofre ou substâncias sulfuradas</td>
+			<td class="tg-check">{{ sulfur_check }} </td>
+		</tr>
+
+		<tr>
+			<td class="tg-basic">Acetonitrila</td>
+			<td class="tg-check">{{ acetonitrile_check }}</td>
+			<td class="tg-basic">Geradores de cianeto</td>
+			<td class="tg-check">{{ cyanide_check }}</td>
+		</tr>
+
+		<tr>
+			<td class="tg-basic">Metais Pesados</td>
+			<td class="tg-check">{{ heavy_metals_check }}</td>
+			<td class="tg-basic">Aminas</td>
+			<td class="tg-check">{{ amine_check }}</td>
+		</tr>
+
+		<tr>
+			<td class="tg-barcode" colspan="5">
+
+				<img src="/media/barcode.png" alt="barcode" style="height:2cm">
+			</td>
+		</tr>
+
+	</table>
+
+</div>
+</div>
+</body>
+</html>
+

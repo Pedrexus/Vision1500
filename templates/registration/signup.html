@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block title %} Cadastre-se {% endblock %}
+
+{% block main %}
+
+      <h2>Cadastro de novo usuário</h2>
+      <form method="post">
+        {% csrf_token %}
+        {{ form|bootstrap_horizontal }}
+        <button type="submit">Sign up</button>
+      </form>
+
+{% endblock %}

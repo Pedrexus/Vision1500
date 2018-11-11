@@ -1,0 +1,15 @@
+{% extends 'base_logged.html' %}
+
+{% block title %}Confirma favoritar?{% endblock %}
+
+{% block main %}
+
+    <h3>Você confirma que quer favoritar: {{ this_waste.chemical_makeup }}?</h3>
+
+    <form method="post">
+        {% csrf_token %}
+        <button class="btn btn-danger" type="submit" value="True">SIM</button>
+        <a href="{% url 'user_wastes' %}">NÃO</a>
+    </form>
+
+{% endblock %}

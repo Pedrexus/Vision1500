@@ -1,0 +1,12 @@
+{% extends 'base_logged.html' %}
+
+{% block title %} Gestão de Resíduos {% endblock %}
+
+{% block main %}
+	<h1 class="text-center">Seja Bem Vindo, {{ user.username }}</h1>
+	    <div class="text-center">
+		    <div class="btn-group btn-group-justified btn-group-mg my-2">
+		            <a class="btn btn-danger" href="{% url 'logout' %}">logout</a>
+			</div>
+	    </div>
+{% endblock %}

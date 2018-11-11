@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Seja Bem Vindo{% endblock %}
+
+{% block aside %}
+
+	<h1 class="jumbotron text-center">Sistema de Gestão de Resíduos do DeGR</h1>
+
+{% endblock %}
+
+{% block main %}
+
+
+
+    {% if user.is_authenticated %}
+        <h1 class="text-center">Olá, {{ user.username }}</h1>
+	    <div class="text-center">
+		    <div class="btn-group btn-group-justified btn-group-mg my-btn-group-responsive" role="group" aria-label="Home buttons">
+		            <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
+			        <a class="btn btn-primary" href="{% url 'user_home' %}">Minha Home</a>
+			</div>
+	    </div>
+    {% else %}
+	    <h1 class="text-center">Seja Bem Vindo</h1>
+	    <div class="text-center">
+		    <div class="btn-group btn-group-justified btn-group-mg my-2">
+		            <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
+		            <a class="btn btn-primary" href="{% url 'signup' %}">Cadastro</a>
+			</div>
+	        <div class="btn-group btn-group-justified btn-group-mg my-2" role="group" aria-label="Home buttons">
+		            <a class="btn btn-info" href="{% url 'reset_password' %}">Esqueci a senha</a>
+	                <a class="btn btn-info" href="/admin"> Administrador </a>
+			</div>
+	    </div>
+    {% endif %}
+
+{% endblock %}

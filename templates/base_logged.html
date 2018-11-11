@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block aside %}
+    <aside class="p-2">
+        <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+	        <a class="navbar-brand" href="{% url 'user_home' %}">
+		        <i class="fas fa-home"></i>
+		         Home
+	        </a>
+
+	        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+	        <div class="collapse navbar-collapse" id="navbarToggleExternalContent">
+		        <div class="navbar-nav">
+	                <a class="nav-item nav-link" href="{% url 'user_data' %}" title="">Meus Dados</a>
+	                <a class="nav-item nav-link" href="{% url 'user_stats' %}" title="">Minhas Estatísticas</a>
+	                <a class="nav-item nav-link" href="{% url 'user_wastes' %}" title="">Meus Resíduos</a>
+		        </div>
+	        </div>
+        </nav>
+    </aside>
+{% endblock %}
+
+{% block main %}
+
+    <h1>Seja Bem Vindo</h1>
+
+    {% if user.is_authenticated %}
+        <p>Olá, {{ user.username }}</p>
+        <a href="{% url 'logout' %}">Logout</a>
+        <a href="{% url 'user_home' %}">Minha Home</a>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'signup' %}">Cadastro</a>
+    {% endif %}
+
+{% endblock %}

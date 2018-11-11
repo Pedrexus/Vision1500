@@ -1,0 +1,136 @@
+{% extends 'base_logged.html' %}
+
+{% block title %} Meus Resíduos {% endblock %}
+
+{% block main %}
+
+	<div class="jumbotron">
+		<h1>Meus Resíduos</h1>
+	</div>
+	{% if my_wastes_with_me %}
+		<table class="table table-striped table-responsive-md">
+			<thead class="thead-dark">
+			<tr>
+				<th scope="col">Resíduo</th>
+				<th scope="col">Data de modificação</th>
+				<th scope="col" class="text-center">Editar</th>
+				<th scope="col" class="text-center">Deletar</th>
+				<th scope="col" class="text-center">Etiqueta</th>
+				<th scope="col" class="text-center">Favoritar</th>
+				<th scope="col" class="text-center">Enviar</th>
+			</tr>
+			</thead>
+			<tbody>
+			<form id="send-form">
+				{% for waste in my_wastes_with_me %}
+					<tr>
+						<th scope="row">{{ waste.chemical_makeup_names }}</th>
+						<td>{{ waste.last_modified_date }}</td>
+						<td class="text-center">
+							<a class="btn btn-info"
+							   href="{% url 'update_waste' waste.id %}">
+								<i class="fas fa-pen fa-2x"></i>
+							</a>
+						</td>
+						<td class="text-center">
+							<a class="btn btn-danger"
+							   href="{% url 'delete_waste' waste.id %}">
+								<i class="fas fa-trash-alt fa-2x"></i>
+							</a>
+						</td>
+						<td class="text-center">
+							<a class="btn btn-warning"
+							   href="{% url 'pdf_waste' waste.id %}">
+								<i class="fas fa-file-alt fa-2x"></i>
+							</a>
+						</td>
+						<td class="text-center">
+							<a class="btn btn-success"
+							   href="{% url 'bookmark_waste' waste.id %}">
+								<i class="fas fa-star fa-2x text-warning"></i>
+							</a>
+						</td>
+						<td class="text-center">
+							<div class="custom-control custom-checkbox">
+
+								<input type="checkbox"
+								       name="{{ waste.id }}"
+								       class="custom-control-input big-checkbox"
+								       id="{{ waste.id }}">
+								<label class="custom-control-label"
+								       for="{{ waste.id }}">
+								</label>
+
+							</div>
+						</td>
+					</tr>
+				{% endfor %}
+			</form>
+			</tbody>
+		</table>
+	{% endif %}
+
+	<h4>
+		<a class="btn btn-primary" href="{% url 'create_waste' %}">Novo
+			Resíduo</a>
+		{% if my_wastes_with_me %}
+			<button form="send-form" class="btn btn-secondary" type="submit">
+				Enviar
+				Resíduos
+				Selecionados
+			</button>
+		{% endif %}
+	</h4>
+
+	{% if my_bookmarked_wastes %}
+		<div class="jumbotron">
+			<h1>Meus Resíduos Favoritos</h1>
+		</div>
+
+		<table class="table table-striped table-responsive-sm">
+			<thead class="thead-dark">
+			<tr>
+				<th scope="col">Resíduo</th>
+				<th scope="col" class="text-center">Copiar</th>
+			</tr>
+			</thead>
+			<tbody>
+			{% for bwaste in my_bookmarked_wastes %}
+				<tr>
+					<th scope="row">{{ bwaste.waste.chemical_makeup_names }}</th>
+					<td class="text-center">
+						<a class="btn btn-info"
+						   href="#">
+							<i class="fas fa-pen fa-2x"></i>
+						</a>
+					</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	{% endif %}
+
+	{% if my_wastes_status_2 %}
+		<div class="jumbotron">
+			<h1>Meus Resíduos Enviados</h1>
+		</div>
+
+		<table class="table table-striped table-responsive-sm">
+			<thead class="thead-dark">
+			<tr>
+				<th scope="col">Resíduo</th>
+				<th scope="col" class="text-center">Situação</th>
+			</tr>
+			</thead>
+			<tbody>
+			{% for waste in my_wastes_status_2 %}
+				<tr>
+					<th scope="row">{{ waste.chemical_makeup_names }}</th>
+					<td class="text-center">{{ waste.get_status_display }}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	{% endif %}
+
+{% endblock %}

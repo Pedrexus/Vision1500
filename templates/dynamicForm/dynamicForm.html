@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block title %}Formulário de Resíduo{% endblock %}
+
+{% block main %}
+
+    <form>
+        {%  csrf_token %}
+        <div id="forms">
+            {{ form.as_p }}
+        </div>
+        {% for interest_field in form.get_interest_fields %}
+            {{ interest_field }}
+        {% endfor %}
+        <button id="add-another">add another</button>
+        <input type="submit" />
+    </form>
+
+{% endblock %}
+
+{% block JSscript %}
+    // ops
+{% endblock %}
