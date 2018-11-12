@@ -1,10 +1,12 @@
 import os
 
+import cv2
 import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 from google.cloud.vision import types
 
 from analysis.vision_algorithm._activate_api import build_image, client
+from analysis.vision_algorithm.detect_color import filter_by_color
 from .image_properties import localize_objects, detect_prices
 
 STATIC_FONTS_WINDOWS = r'C:\Users\Pedro\Documents\PycharmProjects\Vision1500\static\fonts'
@@ -64,7 +66,7 @@ def draw_prices_hints(image_path, min_price=.1, max_price=10., **kwargs):
     draw_hints(image_path, prices, pct=False, **kwargs)
 
 
-def get_crop_hint(path, aspect_ratios='1.'):
+def get_crop_hint(image, aspect_ratios='1.'):
     """Detect crop hints on a single image and return the first result."""
 
     aspect_ratios = [float(x) for x in aspect_ratios.split(',')]
@@ -72,7 +74,7 @@ def get_crop_hint(path, aspect_ratios='1.'):
     image_context = types.ImageContext(crop_hints_params=crop_hints_params)
 
     response = client.crop_hints(
-        image=build_image(path),
+        image=image,
         image_context=image_context
     )
     hints = response.crop_hints_annotation.crop_hints
@@ -83,11 +85,10 @@ def get_crop_hint(path, aspect_ratios='1.'):
     return crop_hints
 
 
-def crop_to_hint(image_path, image_to_crop_path, aspect_ratios='1.', filename=None,
-                 output_format='JPEG', retimg=False):
+def crop_to_hint(source_image, image_to_crop_path, aspect_ratios='1.',
+                 filename=None, output_format='JPEG', retimg=False):
     """Crop the image using the hints in the vector list."""
-    im = Image.open(image_path)
-    crop_hints = get_crop_hint(image_path, aspect_ratios)
+    crop_hints = get_crop_hint(source_image, aspect_ratios)
 
     """
     best_crop_index = np.argmax(
@@ -110,3 +111,19 @@ def crop_to_hint(image_path, image_to_crop_path, aspect_ratios='1.', filename=No
             im2.save(filename, output_format)
         else:
             im2.save('output-draw_hints.jpg', output_format)
+
+
+def crop_by_color(path, color, aspect_ratios='1.', output=None):
+    image = build_image(path)  # google vision
+
+    contrast_image = filter_by_color(path, color=color, retimg=True)
+    google_cont_img = types.Image(
+        content=cv2.imencode('.jpg', contrast_image)[1].tostring()
+    )
+
+    crop_to_hint(
+        source_image=google_cont_img,
+        image_to_crop_path=path, #cv2
+        filename=output,
+        aspect_ratios=aspect_ratios,
+    )
