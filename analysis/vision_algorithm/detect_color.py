@@ -7,7 +7,7 @@ from analysis.vision_algorithm.colors import colors_boundaries
 
 
 def filter_by_bgr_boundaries(path, lower_boundary, upper_boundary,
-                             show_img=False, output='output.jpg'):
+                             show_img=False, output='output.jpg', retimg=False):
     """Uses OpenCV to filter objects in an image through color.
 
     Args:
@@ -32,11 +32,13 @@ def filter_by_bgr_boundaries(path, lower_boundary, upper_boundary,
         # show the images
         cv2.imshow("images", np.hstack([image, output]))
         cv2.waitKey(0)
+    if retimg:
+        return mask
     else:
         cv2.imwrite(output, mask)
 
 
-def filter_by_color(path, color, show_img=False, output='output.jpg'):
+def filter_by_color(path, color, show_img=False, output='output.jpg', retimg=False):
     lower_boundary, upper_boundary = colors_boundaries[color]
     filter_by_bgr_boundaries(
         path,
@@ -44,4 +46,5 @@ def filter_by_color(path, color, show_img=False, output='output.jpg'):
         upper_boundary,
         show_img,
         output,
+        retimg,
     )

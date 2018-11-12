@@ -35,3 +35,20 @@ def localize_objects(path):
     objects = response.localized_object_annotations
 
     return {obj.name: obj.bounding_poly.normalized_vertices for obj in objects}
+
+
+def detect_prices(path, min_price=.1, max_price=10.):
+    response = client.text_detection(image=build_image(path))
+    objects = [obj for obj in response.text_annotations]
+
+    prices = {}
+    for object_ in objects:
+        try:
+            price = float(object_.description.replace(',', '.'))
+        except ValueError:
+            price = -9999.
+
+        if min_price < price < max_price:
+            prices[str(price)] = object_.bounding_poly.vertices
+
+    return prices
