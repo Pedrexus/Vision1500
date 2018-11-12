@@ -1,0 +1,32 @@
+{% extends 'base_logged.html' %}
+{% load bootstrap %}
+{% load widget_tweaks %}
+
+{% block title %}Upload de Imagem{% endblock %}
+
+{% block main %}
+
+    <h3 class="jumbotron bg-dark text-white">Upload de Imagem</h3>
+    <div class="row justify-content-md-center">
+        <div class="col col-sm"></div>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ pic_form|bootstrap_horizontal }}
+
+            <button class="btn btn-primary" type="submit">Salvar</button>
+        </form>
+
+        <div class="col col-sm"></div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script>
+        $('.dropdown-mul').dropdown({
+            limitCount: 40,
+            multipleMode: 'label',
+        });
+    </script>
+{% endblock %}

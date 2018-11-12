@@ -41,12 +41,12 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     'widget_tweaks',
-    'bootstrapform'
+    'bootstrapform',
 ]
 
 MY_APPS = [
     'registration',
-    'analysis'
+    'analysis',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + MY_APPS
@@ -134,8 +134,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'collectstatic')
-STATICFILES_DIR = (
-    os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
 )
 
 MEDIA_URL = '/media/'

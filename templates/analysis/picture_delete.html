@@ -1,0 +1,25 @@
+{% extends 'base_logged.html' %}
+
+{% block title %}Confirma deletar?{% endblock %}
+
+{% block main %}
+
+    <h3>Você confirma que quer deletar:
+
+        <a href="{{ media_url }}{{ this_pic.content.name }}"
+           style="text-decoration: none;">
+            <img src="{{ media_url }}{{ this_pic.content.name }}"
+                 class="img-fluid rounded"
+                 style="height: 40px; width: 40px;"/>
+        </a>
+
+        ?
+    </h3>
+
+    <form method="post">
+        {% csrf_token %}
+        <button class="btn btn-danger" type="submit" value="True">SIM</button>
+        <a href="{% url 'user_pics' %}">NÃO</a>
+    </form>
+
+{% endblock %}
