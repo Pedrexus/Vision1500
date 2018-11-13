@@ -8,12 +8,15 @@ class PictureForm(forms.ModelForm):
     class Meta:
         model = Picture
 
-        fields = ('content',
+        fields = ('market',
+                  'content',
                   )
         labels = {
+            'market': _('Supermercado'),
             'content': _('Imagem'),
         }
         help_texts = {
+            'market': _('O supermercado onde você está'),
             'content': _('Faça o upload da sua imagem.'),
         }
         error_messages = {
